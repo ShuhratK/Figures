@@ -27,8 +27,16 @@ namespace Figures
 
         public Circle(float radius)
         {
-            this.radius = radius;
+            if (radius > 0.0f)
+            {
+                this.radius = radius;
+            }
+            else
+            {
+                throw new Exception("Такой круг невозможен");
+            }
         }
+
 
         public override float getArea()
         {
@@ -44,9 +52,17 @@ namespace Figures
 
         public Triangle(float sideA, float sideB, float sideC)
         {
-            this.sideA = sideA;
-            this.sideB = sideB;
-            this.sideC = sideC;
+            if(sideA > 0.0f & sideB > 0.0f & sideC > 0.0f &
+            !(sideA + sideB <= sideC) & !(sideC + sideB <= sideA) & !(sideA + sideC <= sideB))
+            {
+                this.sideA = sideA;
+                this.sideB = sideB;
+                this.sideC = sideC;
+            }
+            else
+            {
+                throw new Exception("Такой треугольник невозможен");
+            }
         }
 
         public override float getArea()
@@ -55,11 +71,11 @@ namespace Figures
             return (float)Math.Sqrt(p * (p - sideA) * (p - sideB) * (p - sideC));
         }
 
-        public bool isRight()
+        public bool IsRight()
         {
-            return sideA * sideA == (sideB * sideB) + (sideC * sideC) ||
-                   sideB * sideB == (sideA * sideA) + (sideC * sideC) ||
-                   sideC * sideC == (sideB * sideB) + (sideA * sideA);
+            return Math.Abs(sideA * sideA - ((sideB * sideB) + (sideC * sideC))) < 0.005 ||
+                   Math.Abs(sideB * sideB - ((sideA * sideA) + (sideC * sideC))) < 0.005 ||
+                   Math.Abs(sideC * sideC - ((sideB * sideB) + (sideA * sideA))) < 0.005;
 
         }
          
